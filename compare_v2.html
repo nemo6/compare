@@ -1,0 +1,129 @@
+<style>
+
+input.upload {
+
+    font-size: 12px;
+    padding: 127px;
+    background-color: lightgrey;
+}
+
+div.upload {
+
+    margin-left: 35%;
+    margin-top: 3%;
+   
+}
+
+</style>
+
+<div class="upload">
+
+	<input class="upload" type="file" id="in" multiple>
+	<br>
+	<br>
+	<input type="button" value="Submit" id="cc">
+	<br>
+	<br>
+	<input type="radio" name="ff" id="AtoB" value="" checked="checked"/>1er Fichier<br>
+	<input type="radio" name="ff" id="BtoA" value=""/>2er Fichier<br>
+
+</div>
+
+<pre>
+<p id="content">
+</pre>
+
+<script>
+
+document.getElementById('cc').onclick = function (){
+		
+	// console.log(document.getElementById("in").files.length)
+	
+	if ( document.getElementById("in").files.length != 0 ){
+
+		function resolveAfter2Seconds(x) {
+		
+			return new Promise( resolve => {
+	
+				reader = new FileReader()
+				reader.onload = function() {
+				
+				text = reader.result
+				
+				r1  = /.*\r\n/gi
+				
+				f1 = text.match(r1)
+	
+				console.log(f1)
+				
+				resolve(f1)
+
+				}
+				
+				reader.readAsText(x)
+				
+			})
+			
+		}
+
+		async function asyncCall() {
+		
+			// let intersection = arrA.filter(x => arrB.includes(x));
+			
+			// let difference = arrA.filter(x => !arrB.includes(x));
+			
+			// let difference = arrB.filter(x => !arrA.includes(x));
+			
+			/* let difference = arrA
+				 .filter(x => !arrB.includes(x))
+				 .concat(arrB.filter(x => !arrA.includes(x)));
+			*/
+			
+			/*
+			
+			Ici je devrais plutôt faire un function isCheck() qui va jusqu'au "difference.map ..." plutôt qu'un if/else qui m'oblige à écrire deux fois la même chose. 
+			
+			*/
+			
+			if ( document.getElementById('AtoB').checked ){
+			
+				var arrA = await resolveAfter2Seconds(document.getElementById('in').files[0])
+				var arrB = await resolveAfter2Seconds(document.getElementById('in').files[1])
+				
+			}else{
+			
+				var arrB = await resolveAfter2Seconds(document.getElementById('in').files[0])
+				var arrA = await resolveAfter2Seconds(document.getElementById('in').files[1])
+				
+			}
+		
+			let difference = arrA.filter(x => !arrB.includes(x))
+				
+				if ( difference.length == 0 ){
+				
+					document.getElementById('content').innerHTML = "Pas d'intrus"
+				
+				}else{
+					
+					document.getElementById('content').innerHTML = ""
+					
+					difference.map ( x => document.getElementById('content').innerHTML += x )
+					
+					// console.log(document.getElementById('in').files[0].name)
+					// console.log(document.getElementById('in').files[1].name)
+				
+				}
+				
+		}
+	
+		asyncCall()
+	
+	}
+	else
+	document.getElementById('content').innerHTML = "Pas de fichers sélectionnés."
+		
+}
+
+
+</script>
+
