@@ -6,7 +6,7 @@ Extraire le projet avec WinRAR : https://www.win-rar.com/start.html?L=10
 
 Cliquer sur le fichier :
 
-    compare_v2.html
+    index.html
 
 Il suffit de glisser/déposer les deux autres fichers textes dans la zone grise.
 
