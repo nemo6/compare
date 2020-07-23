@@ -10,4 +10,4 @@ Le regex séléctionne toutes les lignes suivie d'un saut de ligne :
 
     \r\n 
 
-Du coup, la toute dernière ligne du fichier n'est pas pris en compte.
+Du coup la toute dernière ligne du fichier n'est pas pris en compte.
